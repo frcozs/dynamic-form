@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormStateService } from '../../core/services/form-state.service';
@@ -14,6 +15,7 @@ import { FormFieldSchema } from '../../core/models/form-schema.model';
 })
 export class FormSummaryComponent {
   private formStateService = inject(FormStateService);
+  private router = inject(Router);
 
   readonly summaryItems$ = combineLatest([
     this.formStateService.selectedSchema$,
@@ -49,5 +51,6 @@ export class FormSummaryComponent {
 
   onCompleteAndReset(): void {
     this.formStateService.resetState();
+    this.router.navigate(['/']);
   }
 }
