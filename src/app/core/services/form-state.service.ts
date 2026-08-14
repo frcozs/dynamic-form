@@ -104,6 +104,13 @@ export class FormStateService {
     }
   }
 
+  goToSection(index: number): void {
+    const schema = this.selectedSchemaSubject.value;
+    if (schema && index >= 0 && index < schema.sections.length) {
+      this.currentSectionIndexSubject.next(index);
+    }
+  }
+
   updateFieldValue(questionId: number, value: unknown): void {
     const currentData = this.formDataSubject.value;
     

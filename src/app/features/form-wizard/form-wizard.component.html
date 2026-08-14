@@ -1,4 +1,9 @@
 @if (selectedSchema$ | async; as schema) {
+    <div class="wizard-layout">
+    <aside class="wizard-sidebar">
+        <app-section-nav />
+    </aside>
+
     <div class="wizard-container">
     <header class="wizard-header">
         <div>
@@ -17,28 +22,29 @@
 
     <footer class="wizard-footer">
         @if ((isFirstSection$ | async) === false) {
-            <button 
-            (click)="onPrevious()" 
+            <button
+            (click)="onPrevious()"
             class="btn btn-secondary">
                 Previous
             </button>
         }
 
         @if ((isLastSection$ | async) === false) {
-        <button 
-            (click)="onNext()" 
+        <button
+            (click)="onNext()"
             [disabled]="!(isCurrentSectionValid$ | async)"
             class="btn btn-primary">
             Next
         </button>
         } @else {
-        <button 
-            (click)="onSubmit()" 
+        <button
+            (click)="onSubmit()"
             [disabled]="!(isCurrentSectionValid$ | async)"
             class="btn btn-submit">
             Submit
         </button>
         }
     </footer>
+    </div>
     </div>
 }

@@ -15,6 +15,16 @@ describe('FormStateService', () => {
     sections: []
   };
 
+  const TEST_SCHEMA_WITH_SECTIONS: FormSchema = {
+    id: 'test-schema',
+    title: 'Test Schema',
+    sections: [
+      { id: 'section-a', title: 'Section A', fields: [] },
+      { id: 'section-b', title: 'Section B', fields: [] },
+      { id: 'section-c', title: 'Section C', fields: [] }
+    ]
+  };
+
   beforeEach(() => {
     mockApiServiceSpy = jasmine.createSpyObj('MockApiService', ['getSchemas', 'saveQuestionResponse']);
 
@@ -69,6 +79,36 @@ describe('FormStateService', () => {
 
     expect(latestStatus).toBe(SaveStatus.Saved);
   }));
+
+  it('should navigate directly to a section by index via goToSection', () => {
+    service.setSchema(TEST_SCHEMA_WITH_SECTIONS);
+
+    service.goToSection(2);
+
+    let currentIndex: number | undefined;
+    service.currentSectionIndex$.subscribe(index => currentIndex = index);
+    expect(currentIndex).toBe(2);
+  });
+
+  it('should ignore out-of-range indexes passed to goToSection', () => {
+    service.setSchema(TEST_SCHEMA_WITH_SECTIONS);
+    service.goToSection(1);
+
+    service.goToSection(5);
+    service.goToSection(-1);
+
+    let currentIndex: number | undefined;
+    service.currentSectionIndex$.subscribe(index => currentIndex = index);
+    expect(currentIndex).toBe(1);
+  });
+
+  it('should ignore goToSection calls when no schema is selected', () => {
+    service.goToSection(1);
+
+    let currentIndex: number | undefined;
+    service.currentSectionIndex$.subscribe(index => currentIndex = index);
+    expect(currentIndex).toBe(0);
+  });
 
   it('should retry up to the configured count and set status to Error on persistent failure', fakeAsync(() => {
     let attempts = 0;

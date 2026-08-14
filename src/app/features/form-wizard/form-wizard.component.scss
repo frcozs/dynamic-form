@@ -1,6 +1,21 @@
-.wizard-container {
-  max-width: 700px;
+.wizard-layout {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 900px;
   margin: 2rem auto;
+  align-items: flex-start;
+
+  .wizard-sidebar {
+    flex: 0 0 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 0.5rem;
+  }
+}
+
+.wizard-container {
+  flex: 1 1 auto;
   padding: 2rem;
   border: 1px solid #ddd;
   border-radius: 8px;
