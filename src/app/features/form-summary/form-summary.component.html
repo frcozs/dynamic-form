@@ -1,0 +1,21 @@
+<div class="summary-container">
+      <h2>Awesome</h2>
+      <p class="summary-subtitle">Summary</p>
+
+      <div class="summary-list">
+        @if (summaryItems$ | async; as items) {
+          @for (item of items; track $index) {
+            <div class="summary-row">
+              <span class="question-label">{{ item.label }}</span>
+              <span class="answer-value">{{ item.value }}</span>
+            </div>
+          }
+        }
+      </div>
+
+      <div class="summary-actions">
+        <button (click)="onCompleteAndReset()" class="btn-reset">
+          Complete the flow and Reset
+        </button>
+      </div>
+</div>

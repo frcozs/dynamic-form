@@ -1,0 +1,22 @@
+.status-badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  display: inline-block;
+
+  &.status-saving {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+
+  &.status-saved {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  &.status-error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+}

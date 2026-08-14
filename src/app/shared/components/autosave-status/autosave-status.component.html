@@ -1,0 +1,7 @@
+@if (saveStatus$ | async; as status) {
+      <div class="status-badge" [class]="getStatusClass(status)">
+        @if (status !== SaveStatus.Idle) {
+          <span>{{ status }}</span>
+        }
+      </div>
+}

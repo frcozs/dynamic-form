@@ -1,0 +1,126 @@
+.dynamic-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .form-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    .field-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #333;
+
+      .required-asterisk {
+        color: #dc3545;
+        margin-left: 0.2rem;
+      }
+    }
+
+    .form-control {
+      padding: 0.6rem 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &.is-invalid {
+      border-color: #dc3545;
+      background-color: #fff8f8;
+
+      &:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+      }
+    }
+      /*&:focus {
+        border-color: #0066cc;
+      }*/
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.2rem;
+
+      .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        cursor: pointer;
+      }
+    }
+
+    /* Custom Toggle Switch */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 46px;
+        height: 24px;
+
+        input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+
+          &:checked + .slider {
+            background-color: #0066cc;
+
+            &:before {
+              transform: translateX(22px);
+            }
+          }
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          transition: 0.3s;
+
+          &:before {
+            position: absolute;
+            content: '';
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+          }
+
+          &.round {
+            border-radius: 24px;
+
+            &:before {
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+
+      .toggle-status {
+        font-weight: 500;
+        color: #555;
+      }
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 0.8rem;
+        margin-top: 0.2rem;
+    }
+  }
+}

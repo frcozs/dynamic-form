@@ -1,0 +1,44 @@
+@if (selectedSchema$ | async; as schema) {
+    <div class="wizard-container">
+    <header class="wizard-header">
+        <div>
+        @if (currentSection$ | async; as currentSection) {
+            <p class="section-title">
+                {{ currentSection.title }}
+            </p>
+        }
+        </div>
+        <app-autosave-status />
+    </header>
+
+    <main class="wizard-content">
+        <app-dynamic-form />
+    </main>
+
+    <footer class="wizard-footer">
+        @if ((isFirstSection$ | async) === false) {
+            <button 
+            (click)="onPrevious()" 
+            class="btn btn-secondary">
+                Previous
+            </button>
+        }
+
+        @if ((isLastSection$ | async) === false) {
+        <button 
+            (click)="onNext()" 
+            [disabled]="!(isCurrentSectionValid$ | async)"
+            class="btn btn-primary">
+            Next
+        </button>
+        } @else {
+        <button 
+            (click)="onSubmit()" 
+            [disabled]="!(isCurrentSectionValid$ | async)"
+            class="btn btn-submit">
+            Submit
+        </button>
+        }
+    </footer>
+    </div>
+}

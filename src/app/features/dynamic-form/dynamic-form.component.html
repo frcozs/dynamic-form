@@ -1,0 +1,68 @@
+@if (currentSection$ | async; as section) {
+    <form [formGroup]="formGroup" class="dynamic-form">
+    @for (field of section.fields; track field.id) {
+        <div class="form-field-group">
+        <label [for]="'field-' + field.id" class="field-label">
+            {{ field.label }}
+            @if (field.required) {
+                <span class="required-asterisk">*</span>
+            }
+        </label>
+
+        @switch (field.type) {
+            @case ('text') {
+            <input 
+                [id]="'field-' + field.id"
+                [formControlName]="field.id.toString()"
+                type="text"
+                class="form-control"
+                [class.is-invalid]="getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)"
+                [placeholder]="'Ingrese ' + field.label.toLowerCase()" />
+            }
+
+            @case ('number') {
+            <input 
+                [id]="'field-' + field.id"
+                [formControlName]="field.id.toString()"
+                type="number"
+                class="form-control"
+                [class.is-invalid]="getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)"
+                [placeholder]="'Enter quantity'" />
+            }
+
+            @case ('radio') {
+            <div class="radio-group">
+                @for (option of field.options; track option) {
+                <label class="radio-option">
+                    <input 
+                    type="radio" 
+                    [formControlName]="field.id.toString()"
+                    [value]="option" />
+                    <span>{{ option }}</span>
+                </label>
+                }
+            </div>
+            }
+
+            @case ('toggle') {
+            <div class="toggle-container">
+                <label class="switch">
+                <input 
+                    type="checkbox" 
+                    [formControlName]="field.id.toString()" />
+                <span class="slider round"></span>
+                </label>
+                <span class="toggle-status">
+                {{ formGroup.get(field.id.toString())?.value ? 'Yes' : 'No' }}
+                </span>
+            </div>
+            }
+        }
+
+        @if (getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)) {
+            <small class="error-message">Field required.</small>
+        }
+        </div>
+    }
+    </form>
+}

@@ -1,0 +1,37 @@
+.wizard-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+
+  .wizard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+
+    .section-title {
+      font-weight: 600;
+      color: #555;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .wizard-content {
+    min-height: 250px;
+    padding: 1rem 0;
+  }
+
+  .wizard-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+
+  }
+}

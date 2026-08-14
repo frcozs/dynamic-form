@@ -1,0 +1,51 @@
+/* Variables */
+$primary-teal: #1ea78d;
+$primary-teal-hover: #178f78;
+$secondary-bg: #f1f3f5;
+$secondary-bg-hover: #e2e8f0;
+$secondary-text: #4a5568;
+
+/* Base Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.8rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+
+  &:focus {
+    outline: none;
+  }
+
+  &-primary,
+  &-start,
+  &-submit {
+    background-color: $primary-teal;
+    color: #ffffff;
+
+    &:hover:not(:disabled) {
+      background-color: $primary-teal-hover;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &-secondary {
+    background-color: $secondary-bg;
+    color: $secondary-text;
+
+    &:hover {
+      background-color: $secondary-bg-hover;
+    }
+  }
+}

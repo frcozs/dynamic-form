@@ -1,0 +1,11 @@
+<div class="app-layout">
+      <main class="app-body">
+        @if (isSubmitted$ | async) {
+          <app-form-summary />
+        } @else if (selectedSchema$ | async) {
+          <app-form-wizard />
+        } @else {
+          <app-schema-selection />
+        }
+      </main>
+</div>
