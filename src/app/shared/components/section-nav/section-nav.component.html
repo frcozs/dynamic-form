@@ -1,0 +1,12 @@
+<nav class="section-nav">
+  @for (item of (sectionNavItems$ | async); track item.id) {
+    <button
+      type="button"
+      class="section-nav-item"
+      [class.active]="item.isActive"
+      (click)="onSelectSection(item.index)"
+    >
+      {{ item.title }}
+    </button>
+  }
+</nav>
