@@ -18,6 +18,12 @@
             "label": "Quantity",
             "type": "number",
             "required": true
+          },
+          {
+            "id": 3948572910,
+            "label": "Description",
+            "type": "long-text",
+            "required": false
           }
         ]
       },

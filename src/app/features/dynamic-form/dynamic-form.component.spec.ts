@@ -22,6 +22,11 @@ describe('DynamicFormComponent', () => {
         id: 'section-b',
         title: 'Section B',
         fields: [{ id: 2, label: 'Field B', type: 'text' }]
+      },
+      {
+        id: 'section-c',
+        title: 'Section C',
+        fields: [{ id: 3, label: 'Field C', type: 'long-text' }]
       }
     ]
   };
@@ -68,5 +73,19 @@ describe('DynamicFormComponent', () => {
     component.getControl(1)!.setValue('active value');
 
     expect(updateFieldValueSpy).toHaveBeenCalledWith(1, 'active value');
+  });
+
+  it('should render a textarea for long-text fields and forward its value', () => {
+    formStateService.setSchema(TEST_SCHEMA);
+    formStateService.goToSection(2);
+    fixture.detectChanges();
+
+    const textarea: HTMLTextAreaElement = fixture.nativeElement.querySelector('textarea.form-control');
+    expect(textarea).not.toBeNull();
+
+    const updateFieldValueSpy = spyOn(formStateService, 'updateFieldValue');
+    component.getControl(3)!.setValue('a long answer');
+
+    expect(updateFieldValueSpy).toHaveBeenCalledWith(3, 'a long answer');
   });
 });

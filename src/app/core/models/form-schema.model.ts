@@ -1,4 +1,4 @@
-export type FieldType = 'text' | 'number' | 'radio' | 'toggle';
+export type FieldType = 'text' | 'number' | 'radio' | 'toggle' | 'long-text';
 
 export enum SaveStatus {
   Idle = 'idle',

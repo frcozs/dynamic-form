@@ -20,6 +20,17 @@
                 [placeholder]="'Ingrese ' + field.label.toLowerCase()" />
             }
 
+            @case ('long-text') {
+            <textarea
+                [id]="'field-' + field.id"
+                [formControlName]="field.id.toString()"
+                class="form-control textarea-control"
+                [class.is-invalid]="getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)"
+                [placeholder]="'Ingrese ' + field.label.toLowerCase()"
+                rows="4">
+            </textarea>
+            }
+
             @case ('number') {
             <input 
                 [id]="'field-' + field.id"
