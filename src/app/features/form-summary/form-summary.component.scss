@@ -19,13 +19,12 @@
     border: 1px solid #eee;
     border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 2rem;
+    margin: 0 0 2rem;
 
     .summary-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      //padding: 1rem 1.2rem;
       padding: 8px 0;
       border-bottom: 1px solid #F8F8F8;
       height: 37px;
@@ -43,6 +42,7 @@
         color: #333;
         width: 50%;
         padding-right: 1rem;
+        margin: 0;
       }
 
       .answer-value {
@@ -51,6 +51,7 @@
         width: 50%;
         text-align: right;
         word-break: break-word;
+        margin: 0;
       }
     }
   }

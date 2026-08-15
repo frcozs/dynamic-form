@@ -47,6 +47,11 @@ export class DynamicFormComponent implements OnInit {
     return this.formGroup.get(fieldId.toString());
   }
 
+  hasVisibleError(fieldId: number): boolean {
+    const control = this.getControl(fieldId);
+    return !!control && control.invalid && (control.touched || control.dirty);
+  }
+
   getErrorMessage(fieldId: number): string {
     const errors = this.getControl(fieldId)?.errors;
     if (!errors) return '';

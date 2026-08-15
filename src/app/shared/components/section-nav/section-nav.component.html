@@ -1,9 +1,10 @@
-<nav class="section-nav">
+<nav class="section-nav" aria-label="Form sections">
   @for (item of (sectionNavItems$ | async); track item.id) {
     <button
       type="button"
       class="section-nav-item"
       [class.active]="item.isActive"
+      [attr.aria-current]="item.isActive ? 'step' : null"
       (click)="onSelectSection(item.index)"
     >
       {{ item.title }}

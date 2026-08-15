@@ -8,9 +8,9 @@
     <header class="wizard-header">
         <div>
         @if (currentSection$ | async; as currentSection) {
-            <p class="section-title">
+            <h2 class="section-title">
                 {{ currentSection.title }}
-            </p>
+            </h2>
         }
         </div>
         <app-autosave-status />

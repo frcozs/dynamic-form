@@ -2,7 +2,10 @@
     <form [formGroup]="formGroup" class="dynamic-form">
     @for (field of section.fields; track field.id) {
         <div class="form-field-group">
-        <label [for]="'field-' + field.id" class="field-label">
+        <label
+            [id]="'field-' + field.id + '-label'"
+            [attr.for]="field.type !== 'radio' ? 'field-' + field.id : null"
+            class="field-label">
             {{ field.label }}
             @if (field.required) {
                 <span class="required-asterisk">*</span>
@@ -11,12 +14,15 @@
 
         @switch (field.type) {
             @case ('text') {
-            <input 
+            <input
                 [id]="'field-' + field.id"
                 [formControlName]="field.id.toString()"
                 type="text"
                 class="form-control"
-                [class.is-invalid]="getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)"
+                [class.is-invalid]="hasVisibleError(field.id)"
+                [attr.aria-invalid]="hasVisibleError(field.id) || null"
+                [attr.aria-describedby]="hasVisibleError(field.id) ? 'field-' + field.id + '-error' : null"
+                [attr.aria-required]="field.required || null"
                 [placeholder]="'Ingrese ' + field.label.toLowerCase()" />
             }
 
@@ -25,28 +31,39 @@
                 [id]="'field-' + field.id"
                 [formControlName]="field.id.toString()"
                 class="form-control textarea-control"
-                [class.is-invalid]="getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)"
+                [class.is-invalid]="hasVisibleError(field.id)"
+                [attr.aria-invalid]="hasVisibleError(field.id) || null"
+                [attr.aria-describedby]="hasVisibleError(field.id) ? 'field-' + field.id + '-error' : null"
+                [attr.aria-required]="field.required || null"
                 [placeholder]="'Ingrese ' + field.label.toLowerCase()"
                 rows="4">
             </textarea>
             }
 
             @case ('number') {
-            <input 
+            <input
                 [id]="'field-' + field.id"
                 [formControlName]="field.id.toString()"
                 type="number"
                 class="form-control"
-                [class.is-invalid]="getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)"
+                [class.is-invalid]="hasVisibleError(field.id)"
+                [attr.aria-invalid]="hasVisibleError(field.id) || null"
+                [attr.aria-describedby]="hasVisibleError(field.id) ? 'field-' + field.id + '-error' : null"
+                [attr.aria-required]="field.required || null"
                 [placeholder]="'Enter quantity'" />
             }
 
             @case ('radio') {
-            <div class="radio-group">
+            <div
+                class="radio-group"
+                role="radiogroup"
+                [attr.aria-labelledby]="'field-' + field.id + '-label'"
+                [attr.aria-describedby]="hasVisibleError(field.id) ? 'field-' + field.id + '-error' : null"
+                [attr.aria-required]="field.required || null">
                 @for (option of field.options; track option) {
                 <label class="radio-option">
-                    <input 
-                    type="radio" 
+                    <input
+                    type="radio"
                     [formControlName]="field.id.toString()"
                     [value]="option" />
                     <span>{{ option }}</span>
@@ -58,8 +75,11 @@
             @case ('toggle') {
             <div class="toggle-container">
                 <label class="switch">
-                <input 
-                    type="checkbox" 
+                <input
+                    [id]="'field-' + field.id"
+                    type="checkbox"
+                    role="switch"
+                    [attr.aria-checked]="getControl(field.id)?.value ?? false"
                     [formControlName]="field.id.toString()" />
                 <span class="slider round"></span>
                 </label>
@@ -70,8 +90,8 @@
             }
         }
 
-        @if (getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)) {
-            <small class="error-message">{{ getErrorMessage(field.id) }}</small>
+        @if (hasVisibleError(field.id)) {
+            <small [id]="'field-' + field.id + '-error'" class="error-message">{{ getErrorMessage(field.id) }}</small>
         }
         </div>
     }
