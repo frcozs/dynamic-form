@@ -1,17 +1,19 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { 
+import {
   AbstractControl,
-  FormBuilder, 
-  FormGroup, 
-  ReactiveFormsModule, 
-  Validators 
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidatorFn,
+  Validators
 } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, withLatestFrom } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FormFieldSchema, FormSectionSchema } from '../../core/models/form-schema.model';
 import { FormStateService } from '../../core/services/form-state.service';
+import { requiredNotBlankValidator } from '../../core/validators/required-not-blank.validator';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -45,6 +47,14 @@ export class DynamicFormComponent implements OnInit {
     return this.formGroup.get(fieldId.toString());
   }
 
+  getErrorMessage(fieldId: number): string {
+    const errors = this.getControl(fieldId)?.errors;
+    if (!errors) return '';
+    if (errors['required']) return 'This field is required.';
+    if (errors['min']) return 'Value cannot be negative.';
+    return 'Invalid value.';
+  }
+
   private buildForm(section: FormSectionSchema, savedData: Record<number, unknown>): void {
     this.sectionRebuild$.next();
 
@@ -55,7 +65,18 @@ export class DynamicFormComponent implements OnInit {
         ? savedData[field.id]
         : field.default !== undefined ? field.default : (field.type === 'toggle' ? false : '');
 
-      const validators = field.required ? [Validators.required] : [];
+      const validators: ValidatorFn[] = [];
+      if (field.required) {
+        validators.push(
+          field.type === 'text' || field.type === 'long-text'
+            ? requiredNotBlankValidator()
+            : Validators.required
+        );
+      }
+      if (field.type === 'number') {
+        validators.push(Validators.min(0));
+      }
+
       group[field.id] = [initialValue, validators];
     });
 

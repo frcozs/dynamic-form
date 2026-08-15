@@ -27,6 +27,14 @@ describe('DynamicFormComponent', () => {
         id: 'section-c',
         title: 'Section C',
         fields: [{ id: 3, label: 'Field C', type: 'long-text' }]
+      },
+      {
+        id: 'section-d',
+        title: 'Section D',
+        fields: [
+          { id: 4, label: 'Required Text', type: 'text', required: true },
+          { id: 5, label: 'Amount', type: 'number' }
+        ]
       }
     ]
   };
@@ -87,5 +95,33 @@ describe('DynamicFormComponent', () => {
     component.getControl(3)!.setValue('a long answer');
 
     expect(updateFieldValueSpy).toHaveBeenCalledWith(3, 'a long answer');
+  });
+
+  it('should treat a whitespace-only value as invalid for a required text field', () => {
+    formStateService.setSchema(TEST_SCHEMA);
+    formStateService.goToSection(3);
+    fixture.detectChanges();
+
+    const control = component.getControl(4)!;
+    control.setValue('   ');
+    expect(control.invalid).toBeTrue();
+    expect(component.getErrorMessage(4)).toBe('This field is required.');
+
+    control.setValue('actual content');
+    expect(control.valid).toBeTrue();
+  });
+
+  it('should reject negative values for number fields', () => {
+    formStateService.setSchema(TEST_SCHEMA);
+    formStateService.goToSection(3);
+    fixture.detectChanges();
+
+    const control = component.getControl(5)!;
+    control.setValue(-1);
+    expect(control.invalid).toBeTrue();
+    expect(component.getErrorMessage(5)).toBe('Value cannot be negative.');
+
+    control.setValue(0);
+    expect(control.valid).toBeTrue();
   });
 });

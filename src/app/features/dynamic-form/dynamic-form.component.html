@@ -71,7 +71,7 @@
         }
 
         @if (getControl(field.id)?.invalid && (getControl(field.id)?.touched || getControl(field.id)?.dirty)) {
-            <small class="error-message">Field required.</small>
+            <small class="error-message">{{ getErrorMessage(field.id) }}</small>
         }
         </div>
     }
