@@ -23,7 +23,7 @@ export class MockApiService {
   saveQuestionResponse(
     requestId: string,
     questionId: number,
-    value: unknown
+    _value: unknown
   ): Observable<{ success: boolean }> {
     return this.simulateRequest({
       result: { success: true },

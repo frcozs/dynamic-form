@@ -160,13 +160,13 @@ export class FormStateService {
     ).pipe(
       retry({
         count: this.AUTO_SAVE_RETRY_COUNT,
-        delay: (error, retryCount) => {
+        delay: () => {
           this.saveStatusSubject.next(SaveStatus.Error);
           return timer(this.AUTO_SAVE_RETRY_DELAY_MS);
         }
       }),
       tap(() => this.saveStatusSubject.next(SaveStatus.Saved)),
-      catchError(err => {
+      catchError(() => {
         this.saveStatusSubject.next(SaveStatus.Error);
         return EMPTY;
       })
