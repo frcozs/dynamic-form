@@ -3,4 +3,4 @@ import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
 
 bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error('Error al arrancar la aplicación Angular:', err));
+  .catch((err) => console.error('Error bootstrapping the Angular application:', err));

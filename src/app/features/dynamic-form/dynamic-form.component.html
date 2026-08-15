@@ -23,7 +23,7 @@
                 [attr.aria-invalid]="hasVisibleError(field.id) || null"
                 [attr.aria-describedby]="hasVisibleError(field.id) ? 'field-' + field.id + '-error' : null"
                 [attr.aria-required]="field.required || null"
-                [placeholder]="'Ingrese ' + field.label.toLowerCase()" />
+                [placeholder]="'Enter ' + field.label.toLowerCase()" />
             }
 
             @case ('long-text') {
@@ -35,7 +35,7 @@
                 [attr.aria-invalid]="hasVisibleError(field.id) || null"
                 [attr.aria-describedby]="hasVisibleError(field.id) ? 'field-' + field.id + '-error' : null"
                 [attr.aria-required]="field.required || null"
-                [placeholder]="'Ingrese ' + field.label.toLowerCase()"
+                [placeholder]="'Enter ' + field.label.toLowerCase()"
                 rows="4">
             </textarea>
             }
@@ -50,7 +50,7 @@
                 [attr.aria-invalid]="hasVisibleError(field.id) || null"
                 [attr.aria-describedby]="hasVisibleError(field.id) ? 'field-' + field.id + '-error' : null"
                 [attr.aria-required]="field.required || null"
-                [placeholder]="'Enter quantity'" />
+                [placeholder]="'Enter ' + field.label.toLowerCase()" />
             }
 
             @case ('radio') {
