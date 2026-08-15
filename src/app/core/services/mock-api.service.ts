@@ -15,7 +15,7 @@ export class MockApiService {
       result: this.schemas,
       minDelayMs: 400,
       maxDelayMs: 700,
-      failureRate: 0.1,
+      failureRate: 0,
       errorMessage: '[MockAPI] HTTP 500: Error loading schemas'
     });
   }
