@@ -25,6 +25,7 @@ export interface FormSectionSchema {
 export interface FormSchema {
   id: string;
   title: string;
+  shortLabel?: string;
   sections: FormSectionSchema[];
 }
 
